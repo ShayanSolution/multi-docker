@@ -1,0 +1,20 @@
+sudo required
+services:
+  - docker
+
+before_install:
+  - docker build -t shayansolutions/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run shayamsolutions/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t shayansolutions/multi-client ./client
+  - docker build -t shayansolutions/multi-nginx ./nginx
+  - docker build -t shayansolutions/multi-server ./server
+  - docker build -t shayansolutions/multi-worker ./worker
+  - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_ID' --password-stdin
+  - docker push shayansolutions/multi-client
+  - docker push shayansolutions/multi-nginx
+  - docker push shayansolutions/multi-server
+  - docker push shayansolutions/multi-wprker
