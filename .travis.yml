@@ -18,3 +18,16 @@ after_success:
   - docker push shayansolutions/multi-nginx
   - docker push shayansolutions/multi-server
   - docker push shayansolutions/multi-wprker
+
+deploy:
+  provider: elasticbeanstalked
+  region: us-east-2
+  app: multi-docker  
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-853363226885
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY  
