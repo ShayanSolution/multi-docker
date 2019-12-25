@@ -17,7 +17,7 @@ after_success:
   - docker push shayansolutions/multi-client
   - docker push shayansolutions/multi-nginx
   - docker push shayansolutions/multi-server
-  - docker push shayansolutions/multi-wprker
+  - docker push shayansolutions/multi-worker
 
 deploy:
   provider: elasticbeanstalked
